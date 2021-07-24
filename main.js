@@ -86,6 +86,7 @@ window.onkeydown = function(e) {
   
         if (distance < this.size + balls[j].size) {
           balls[j].exists = false;
+          this.size += 1;
         }
       }
     }
@@ -149,7 +150,7 @@ Ball.prototype.update = function()
   }
   Ball.prototype.collisionDetect = function() {
     for (let j = 0; j < balls.length; j++) {
-      if (!(this === balls[j])) {
+      if (!(this === balls[j])&& balls[j].exists) {
         const dx = this.x - balls[j].x;
         const dy = this.y - balls[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
