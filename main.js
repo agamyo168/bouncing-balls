@@ -1,5 +1,6 @@
 // setup canvas
 const canvas = document.querySelector('canvas');
+let p = document.querySelector('p');
 const ctx = canvas.getContext('2d');
 
 const width = canvas.width = window.innerWidth;
@@ -86,6 +87,8 @@ window.onkeydown = function(e) {
   
         if (distance < this.size + balls[j].size) {
           balls[j].exists = false;
+          count -=1;
+          p.textContent = `Ball count: ${count}`;
           this.size += 1;
         }
       }
@@ -110,7 +113,8 @@ window.onkeydown = function(e) {
 
   let balls = [];
   let evil = new EvilCircle(20,20,20,20,true);
-while (balls.length < 25) {
+  let count = 25;
+while (balls.length < count) {
   let size = random(10,20);
   let ball = new Ball(
     // ball position always drawn at least one ball width
