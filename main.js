@@ -67,14 +67,20 @@ function Shape (x, y, velX, velY,exists) {
   {
     let _this = this;
 window.onkeydown = function(e) {
-    if (e.key === 'a') {
+   if (e.key === 'a') {
       _this.x -= _this.velX;
     } else if (e.key === 'd') {
       _this.x += _this.velX;
-    } else if (e.key === 'w') {
+    } 
+    else if (e.key === 'w') {
       _this.y -= _this.velY;
     } else if (e.key === 's') {
       _this.y += _this.velY;
+    }
+   
+    else if(e.key === 'q')
+    {
+      _this.size += 20;
     }
   }
   }
@@ -87,9 +93,10 @@ window.onkeydown = function(e) {
   
         if (distance < this.size + balls[j].size) {
           balls[j].exists = false;
+          evil.color = balls[j].color;
           count -=1;
           p.textContent = `Ball count: ${count}`;
-          this.size += 1;
+          this.size += 5;
         }
       }
     }
@@ -114,6 +121,7 @@ window.onkeydown = function(e) {
   let balls = [];
   let evil = new EvilCircle(20,20,20,20,true);
   let count = 25;
+  p.textContent = `Ball count: ${count}`;
 while (balls.length < count) {
   let size = random(10,20);
   let ball = new Ball(
@@ -166,7 +174,7 @@ Ball.prototype.update = function()
     }
   }
 function loop() {
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.25)';
     ctx.fillRect(0, 0, width, height);
   
     for (let i = 0; i < balls.length; i++) {
@@ -191,12 +199,20 @@ function loop() {
       evil.x = 11;
       evil.y = 11;
     }
-
+    if(count === 0)
+    {
+      alert('GAME OVER!\n Play again?');
+      balls.forEach((ball)=>ball.exists = true);
+      count = balls.length;
+      p.textContent = `Ball count: ${count}`;
+      evil.size = 10; evil.x = 11; evil.y = 11;
+        }
     requestAnimationFrame(loop);
     console.log('running');
   }
 
 loop();
+
 
  /**/
     /**/
